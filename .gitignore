@@ -1,0 +1,16 @@
+autogen.sh
+autom4te.cache
+configure.in
+COPYING
+doc
+etc
+LICENSE
+m4
+Makefile.am
+README
+RELEASE.NOTES
+rpm
+schemas
+src
+tools
+.pc

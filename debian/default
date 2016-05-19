@@ -1,0 +1,2 @@
+NO_START=1
+BARNYARD2_ARGS="-c /etc/barnyard2.conf -d /var/log/snort -f snort.log -n"

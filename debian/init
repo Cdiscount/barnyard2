@@ -1,0 +1,97 @@
+#!/bin/sh -e
+#
+# script for starting/stopping Barnyard2
+#
+### BEGIN INIT INFO
+# Provides:          barnyard2
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
+
+# Using the lsb functions to perform the operations.
+. /lib/lsb/init-functions
+
+NAME=barnyard2
+DAEMON=/usr/bin/barnyard2
+PIDFILE=/var/run/$NAME.pid
+NO_START=1
+
+# source the default file
+[ -f /etc/default/barnyard2 ] && . /etc/default/barnyard2
+
+if [ "$NO_START" -eq 1 ] ; then
+    log_daemon_msg "Not starting $NAME; Please set NO_START to 0 in /etc/default/$NAME"
+    log_end_msg 1
+    exit 1
+fi
+
+do_start() {
+    # Checked the PID file exists and check the actual status of process
+    if [ -e $PIDFILE ]; then
+        status_of_proc -p $PIDFILE $DAEMON "$NAME process" > /dev/null 2>&1 && status="0" || status="$?"
+        # If the status is SUCCESS then don't need to start again.
+        if [ $status = "0" ]; then
+            log_daemon_msg "$NAME is already running"
+            log_end_msg 1
+        fi
+    fi
+
+    # Start the daemon
+    log_daemon_msg "Starting the process" "$NAME"
+    if start-stop-daemon --start --chuid barnyard2 --quiet --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON -- $BARNYARD2_ARGS ; then
+        log_end_msg 0
+    else
+        log_end_msg 1
+    fi    
+}
+
+do_stop () {
+    # Stop the daemon.
+    if [ -e $PIDFILE ]; then
+        status_of_proc -p $PIDFILE $DAEMON "Stoppping the $NAME process" > /dev/null 2>&1 && status="0" || status="$?"
+        if [ "$status" = 0 ]; then
+            log_daemon_msg "stopping $NAME"
+            start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE
+            /bin/rm -rf $PIDFILE
+            log_daemon_msg "$NAME process stopped"
+            log_end_msg 0 
+        fi
+    else
+        log_daemon_msg "$NAME process is not running"
+        log_end_msg 0
+    fi
+}
+
+do_status () {
+    # Check the status of the process.
+    if [ -e $PIDFILE ]; then
+        status_of_proc -p $PIDFILE $DAEMON "$NAME process" && exit 0 || exit $?
+    else
+        log_daemon_msg "$NAME Process is not running"
+        log_end_msg 1
+    fi
+}
+
+case "$1" in
+    start)
+	do_start
+	;;
+    status)
+        do_status
+        ;;
+    stop)
+	do_stop
+	;;
+    force-reload|restart)
+        do_stop
+        do_start
+	;;
+    *)
+	echo "Usage: $0 {status|start|stop|restart}"
+	exit 2
+        ;;
+esac

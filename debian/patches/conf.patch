@@ -1,0 +1,11 @@
+--- a/etc/barnyard2.conf
++++ b/etc/barnyard2.conf
+@@ -27,7 +27,7 @@
+ config reference_file:      /etc/snort/reference.config
+ config classification_file: /etc/snort/classification.config
+ config gen_file:            /etc/snort/gen-msg.map
+-config sid_file:            /etc/snort/sid-msg.map
++config sid_file:            /etc/snort/community-sid-msg.map
+ 
+ 
+ # Configure signature suppression at the spooler level see doc/README.sig_suppress

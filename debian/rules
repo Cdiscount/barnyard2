@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+ARCH := $(shell uname -m)
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	./autogen.sh
+	./configure --prefix=/usr/ -sysconfdir=/etc/ --with-mysql --with-mysql-libraries=/usr/lib/$(ARCH)-linux-gnu/
