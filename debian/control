@@ -2,8 +2,9 @@ Source: barnyard2
 Section: non-free/net
 Priority: optional
 Maintainer: Rémi BUISSON <remi.buisson@cdiscount.com>
-Build-Depends: debhelper (>= 4.0.0), libtool, autoconf, automake, libpcap-dev, libmysqlclient-dev
+Build-Depends: debhelper (>= 4.0.0), libtool, autoconf, automake, libpcap-dev, libmysqlclient-dev, dh-systemd
 Standards-Version: 3.9.5
+Vcs-Git: git@github.com:firnsy/barnyard2.git
 
 Package: barnyard2
 Architecture: any

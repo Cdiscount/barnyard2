@@ -1,0 +1,10 @@
+[Unit]
+Description=output spool reader for suricata and snort
+Documentation=https://github.com/firnsy/barnyard2
+
+[Service]
+EnvironmentFile=/etc/default/barnyard2
+ExecStart=/usr/bin/barnyard2 $BARNYARD2_ARGS
+
+[Install]
+WantedBy=multi-user.target
