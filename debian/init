@@ -42,7 +42,7 @@ do_start() {
 
     # Start the daemon
     log_daemon_msg "Starting the process" "$NAME"
-    if start-stop-daemon --start --chuid barnyard2 --quiet --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON -- $BARNYARD2_ARGS ; then
+    if start-stop-daemon --start --quiet --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON -- $BARNYARD2_ARGS ; then
         log_end_msg 0
     else
         log_end_msg 1

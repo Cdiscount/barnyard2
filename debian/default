@@ -1,2 +1,3 @@
 NO_START=1
-BARNYARD2_ARGS="-c /etc/barnyard2.conf -d /var/log/snort -f snort.log -n"
+USER=barnyard2 # you would probably want to change this by snort
+BARNYARD2_ARGS="-c /etc/barnyard2.conf -d /var/log/snort -f snort.log -n -u $USER"
