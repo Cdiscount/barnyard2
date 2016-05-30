@@ -7,7 +7,7 @@ Standards-Version: 3.9.5
 
 Package: barnyard2
 Architecture: any
-Depends: ${misc:Depends}, libmysqlclient18
+Depends: ${misc:Depends}, libmysqlclient18, libpcap0.8
 Suggests: snort (>= 1.8.7), suricata (>= 1.0.0)
 Description: output spool reader for suricata and snort
  This program decouples output overhead from the Suricata/Snort network 
