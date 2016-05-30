@@ -3,7 +3,7 @@
 ARCH := $(shell uname -m)
 
 %:
-	dh $@
+	dh $@ --with=systemd
 
 override_dh_auto_configure:
 	./autogen.sh
